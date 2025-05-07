@@ -2,22 +2,133 @@
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>رسم الدوال ومشتقاتها</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
   <style>
-    body { font-family: Arial; direction: rtl; text-align: center; background: #f9f9f9; padding: 20px; }
-    input, button { padding: 10px; font-size: 16px; margin: 10px; width: 90%; max-width: 300px; }
-    #graph { width: 100%; max-width: 800px; margin: auto; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f3f4f6;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 850px;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .container:hover {
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      font-size: 30px;
+      color: #1e2a3a;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 40px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 15px;
+      font-size: 18px;
+      border: 2px solid #d1d1d1;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+      margin-bottom: 30px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+      outline: none;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(1);
+    }
+
+    #graph {
+      width: 100%;
+      height: 450px;
+      margin-top: 50px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    footer {
+      font-size: 14px;
+      color: #888;
+      margin-top: 40px;
+    }
+
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
-  <h2>رسم الدالة ومشتقتها</h2>
-  <p>أدخل دالة رياضية باستخدام x (مثال: x^2 أو sin(x))</p>
-  <input type="text" id="functionInput" placeholder="أدخل الدالة هنا (مثال: x^2)">
-  <br>
-  <button onclick="plotFunction()">رسم</button>
-  <div id="graph"></div>
+
+  <div class="container">
+    <h2>رسم الدالة ومشتقتها</h2>
+    <p>أدخل دالة رياضية باستخدام x (مثال: x^2 أو sin(x))</p>
+    <input type="text" id="functionInput" placeholder="أدخل الدالة هنا (مثال: x^2)">
+    <button onclick="plotFunction()">رسم الدالة</button>
+    <div id="graph"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 جميع الحقوق محفوظة | <a href="#">الدعم الفني</a></p>
+  </footer>
 
   <script>
     function plotFunction() {
@@ -55,24 +166,38 @@
         x: xValues,
         y: yValues,
         type: 'scatter',
-        name: 'الدالة الأصلية'
+        name: 'الدالة الأصلية',
+        line: { color: '#28a745', width: 3 }
       };
 
       const derivative = {
         x: xValues,
         y: dyValues,
         type: 'scatter',
-        name: 'المشتقة'
+        name: 'المشتقة',
+        line: { color: '#dc3545', width: 3 }
       };
 
       const layout = {
         title: `الدالة: ${expr} | مشتقتها: ${derivativeExpr}`,
-        xaxis: { title: 'x' },
-        yaxis: { title: 'y' }
+        xaxis: { title: 'x', zeroline: false, showgrid: true },
+        yaxis: { title: 'y', zeroline: false, showgrid: true },
+        plot_bgcolor: '#f9f9f9',
+        paper_bgcolor: '#fff',
+        showlegend: true,
+        titlefont: {
+          size: 18,
+          color: '#333'
+        },
+        font: {
+          size: 14,
+          color: '#555'
+        },
       };
 
       Plotly.newPlot('graph', [original, derivative], layout);
     }
   </script>
+
 </body>
 </html>
