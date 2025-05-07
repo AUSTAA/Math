@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>رسم الدوال ومشتقاتها</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+  <style>
+    body { font-family: Arial; direction: rtl; text-align: center; background: #f9f9f9; padding: 20px; }
+    input, button { padding: 10px; font-size: 16px; margin: 10px; width: 90%; max-width: 300px; }
+    #graph { width: 100%; max-width: 800px; margin: auto; }
+  </style>
+</head>
+<body>
+  <h2>رسم الدالة ومشتقتها</h2>
+  <p>أدخل دالة رياضية باستخدام x (مثال: x^2 أو sin(x))</p>
+  <input type="text" id="functionInput" placeholder="أدخل الدالة هنا (مثال: x^2)">
+  <br>
+  <button onclick="plotFunction()">رسم</button>
+  <div id="graph"></div>
+
+  <script>
+    function plotFunction() {
+      const expr = document.getElementById("functionInput").value;
+      const compiled = math.compile(expr);
+
+      // اشتقاق الرمز
+      let derivativeExpr;
+      try {
+        derivativeExpr = math.derivative(expr, 'x').toString();
+      } catch (e) {
+        alert("خطأ في الاشتقاق: تحقق من صحة الدالة.");
+        return;
+      }
+
+      const xValues = [];
+      const yValues = [];
+      const dyValues = [];
+
+      for (let x = -10; x <= 10; x += 0.1) {
+        try {
+          const y = compiled.evaluate({ x });
+          const dy = math.evaluate(derivativeExpr, { x });
+          xValues.push(x);
+          yValues.push(y);
+          dyValues.push(dy);
+        } catch {
+          xValues.push(x);
+          yValues.push(null);
+          dyValues.push(null);
+        }
+      }
+
+      const original = {
+        x: xValues,
+        y: yValues,
+        type: 'scatter',
+        name: 'الدالة الأصلية'
+      };
+
+      const derivative = {
+        x: xValues,
+        y: dyValues,
+        type: 'scatter',
+        name: 'المشتقة'
+      };
+
+      const layout = {
+        title: `الدالة: ${expr} | مشتقتها: ${derivativeExpr}`,
+        xaxis: { title: 'x' },
+        yaxis: { title: 'y' }
+      };
+
+      Plotly.newPlot('graph', [original, derivative], layout);
+    }
+  </script>
+</body>
+</html>
