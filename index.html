@@ -8,19 +8,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
       font-family: 'Roboto', sans-serif;
       background: #f3f4f6;
-      color: #333;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       padding: 20px;
     }
 
@@ -30,7 +29,7 @@
       border-radius: 15px;
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 850px;
+      max-width: 800px;
       transition: all 0.3s ease;
       text-align: center;
     }
@@ -93,7 +92,7 @@
 
     #graph {
       width: 100%;
-      height: 450px;
+      height: 400px;
       margin-top: 50px;
       background-color: #f9f9f9;
       border-radius: 8px;
@@ -113,6 +112,29 @@
 
     footer a:hover {
       text-decoration: underline;
+    }
+
+    /* Media Queries for Responsive Design */
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      input[type="text"] {
+        font-size: 16px;
+      }
+
+      button {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
