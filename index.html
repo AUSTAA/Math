@@ -1,82 +1,68 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>متجر المرح للأطفال</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لعبة إدارة الراتب</title>
   <style>
     body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom right, #ffe8ec, #d0f0fd);
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
       text-align: center;
-      color: #333;
-    }
-
-    header {
-      background-color: #ff9a9e;
+      direction: rtl;
       padding: 20px;
-      color: white;
-      font-size: 24px;
     }
 
-    .logo {
-      font-size: 30px;
-      font-weight: bold;
-    }
-
-    main {
-      padding: 30px 20px;
-    }
-
-    .welcome {
-      font-size: 20px;
-      margin: 20px 0;
-    }
-
-    .buttons {
-      margin-top: 30px;
-    }
-
-    .buttons a {
-      display: inline-block;
-      margin: 10px;
-      padding: 15px 25px;
-      background-color: #ffcc70;
-      color: #333;
-      text-decoration: none;
-      font-size: 18px;
+    .container {
+      background: white;
+      max-width: 600px;
+      margin: auto;
+      padding: 30px;
       border-radius: 10px;
-      transition: background-color 0.3s;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    .buttons a:hover {
-      background-color: #ffc93c;
+    h1 {
+      color: #333;
     }
 
-    footer {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #666;
+    button {
+      padding: 15px 25px;
+      margin-top: 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    #salaryDisplay {
+      font-size: 22px;
+      margin: 20px 0;
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">متجر المرح للأطفال</div>
-  </header>
 
-  <main>
-    <div class="welcome">أهلاً بك في متجرنا السعيد! استعرض المنتجات واختر لعبتك المفضلة!</div>
-    <div class="buttons">
-      <a href="products.html">استعراض المنتجات</a>
-      <a href="cart.html">سلة المشتريات</a>
-    </div>
-  </main>
+  <div class="container">
+    <h1>مرحبًا بك في لعبة إدارة الراتب!</h1>
+    <p>ستحصل على راتب وهمي وتقوم بتوزيعه على الحاجات والكماليات.</p>
+    <div id="salaryDisplay">راتبك: 3000 ريال</div>
+    <button onclick="startGame()">ابدأ توزيع الراتب</button>
+  </div>
 
-  <footer>
-    &copy; 2025 متجر المرح | تصميم تجريبي
-  </footer>
+  <script>
+    let salary = 3000;
+
+    function startGame() {
+      window.location.href = "step2.html";
+    }
+  </script>
+
 </body>
 </html>
