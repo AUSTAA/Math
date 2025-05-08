@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>توزيع الراتب</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    .category {
+      margin: 15px 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 15px;
+      width: 100%;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #result {
+      margin-top: 30px;
+      padding: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>وزّع راتبك</h2>
+  <div class="category">
+    <label>مصاريف أساسية (طعام، إيجار، مدارس):</label>
+    <input type="number" id="necessities" placeholder="مثال: 1000">
+  </div>
+  <div class="category">
+    <label>كماليات (مطاعم، ملابس، ترفيه):</label>
+    <input type="number" id="luxuries" placeholder="مثال: 500">
+  </div>
+  <div class="category">
+    <label>ادخار:</label>
+    <input type="number" id="saving" placeholder="مثال: 200">
+  </div>
+
+  <button onclick="analyze()">احسب النتيجة</button>
+
+  <div id="result"></div>
+
+  <script>
+    const salary = parseFloat(localStorage.getItem('salary') || 0);
+
+    function analyze() {
+      const necessities = parseFloat(document.getElementById('necessities').value) || 0;
+      const luxuries = parseFloat(document.getElementById('luxuries').value) || 0;
+      const saving = parseFloat(document.getElementById('saving').value) || 0;
+
+      const total = necessities + luxuries + saving;
+      let result = '';
+      let evaluation = '';
+
+      if (total > salary) {
+        result += '<p style="color:red;">لقد صرفت أكثر من الراتب! تحتاج إلى قرض وهمي.</p>';
+      } else {
+        const remaining = salary - total;
+        result += `<p>المتبقي من الراتب: ${remaining} دينار</p>`;
+      }
+
+      result += `<p>نسبة الصرف على الضروريات: ${((necessities / salary) * 100).toFixed(1)}%</p>`;
+      result += `<p>نسبة الصرف على الكماليات: ${((luxuries / salary) * 100).toFixed(1)}%</p>`;
+      result += `<p>الادخار: ${saving} دينار</p>`;
+
+      // التقييم النهائي
+      if (necessities >= 0.5 * salary && luxuries <= 0.3 * salary && total <= salary) {
+        evaluation = 'إدارة ممتازة';
+      } else if (luxuries <= 0.5 * salary && total <= salary) {
+        evaluation = 'إدارة متوسطة';
+      } else {
+        evaluation = 'إدارة ضعيفة';
+      }
+
+      result += `<h3>التقييم النهائي: ${evaluation}</h3>`;
+      document.getElementById('result').innerHTML = result;
+    }
+  </script>
+
+</body>
+</html>
